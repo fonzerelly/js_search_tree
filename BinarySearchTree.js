@@ -15,3 +15,20 @@ function E () {
 
 E.prototype = new T();
 
+function member (value, aTree, lessThen){
+    var lt = lessThen || function (first, second) {
+        return first < second;
+    };
+    if (aTree instanceof E) {
+        return false;
+    }
+
+    if (lt(value, aTree.value)) {
+        return member (value, aTree.leftTree);
+    } else if (!lt(value, aTree.value) && !lt(aTree.value, value)) {
+        return true;
+    }
+
+    return member(value, aTree.rightTree);
+}
+

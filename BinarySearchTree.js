@@ -1,13 +1,23 @@
 function size (aTree) {
+    if (!aTree) {
+        return 0;
+    }
     return aTree.size;
 }
 
-function T(value, leftTree, rightTree) {
+function T(value, size, left, right) {
     this.value = value;
-    this.leftTree = leftTree || new E();
-    this.rightTree = rightTree || new E();
-    this.size = 1 + size(this.leftTree) + size(this.rightTree);
+    this.left = left || new E();
+    this.right = right || new E();
+    this.size = size;
 }
+
+function N (value, left, right) {
+    T.call(this, value, undefined, left, right);
+    this.size = 1 + size(left) + size(right);
+}
+
+N.prototype = new T();
 
 function E () {
     this.size = 0;
@@ -24,11 +34,35 @@ function member (value, aTree, lessThen){
     }
 
     if (lt(value, aTree.value)) {
-        return member (value, aTree.leftTree);
+        return member (value, aTree.left);
     } else if (!lt(value, aTree.value) && !lt(aTree.value, value)) {
         return true;
     }
 
-    return member(value, aTree.rightTree);
+    return member(value, aTree.right);
+}
+
+function ExtremeOnEmptyError () {
+    this.message = "Applied min or max on an empty tree.";
+}
+ExtremeOnEmptyError.prototype = new Error();
+
+function extreme (direction, aTree){
+    if (aTree instanceof E) {
+        throw new ExtremeOnEmptyError();
+    }
+
+    if (!(aTree[direction] instanceof E)) {
+        return min(aTree[direction]);
+    }
+    return aTree.value;
+}
+
+function min (aTree) {
+    return extreme("left", aTree);
+}
+
+function max (aTree) {
+    return extreme("right", aTree);
 }
 

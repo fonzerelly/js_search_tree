@@ -20,6 +20,17 @@ describe ("BinarySearchTree", function () {
             });
         });
 
+        describe ("#SizedTree", function() {
+            it ("should be a tree, which calculates its sizese automatically", function (){
+                var auto_sized_tree = new N(
+                    0,
+                    new N(-1),
+                    new N(1)
+                );
+                expect(size(auto_sized_tree)).toEqual(3);
+            });
+        });
+
     });
 
     describe ("operating functions", function () {
@@ -28,9 +39,16 @@ describe ("BinarySearchTree", function () {
         beforeEach(function (){
             simpleTree = new T(
                 0,
-                new T(-1),
-                new T(1)
-                );
+                3,
+                new T(-1, 1),
+                new T(1, 1)
+            );
+            misshapedTree = new T(
+                0,
+                3,
+                new T(1, 1),
+                new T(-1, 1)
+            );
         });
 
 
@@ -41,25 +59,50 @@ describe ("BinarySearchTree", function () {
             });
 
             it ("should return one for a tree without subtrees", function () {
-                expect(size(new T())).toEqual(1);
+                expect(size(new T("v",1))).toEqual(1);
             });
 
-            it ("should return the size of the tree, including its subtree sizes", function () {
-                expect(size(simpleTree)).toEqual(3);
-            });
+            // it ("should return the size of the tree, including its subtree sizes", function () {
+            //     expect(size(simpleTree)).toEqual(3);
+            // });
         });
 
         describe ("#member", function () {
             it ("should return false tree is empty", function () {
                 expect(member(1, new E())).toEqual(false);
             });
-            it ("should return true for containing values", function (){
+            it ("should return true for containing values", function () {
                 expect(member(1, simpleTree)).toEqual(true);
                 expect(member(-1, simpleTree)).toEqual(true);
                 expect(member(0, simpleTree)).toEqual(true);
             });
-            it ("should return false for non containing values", function (){
+            it ("should return false for non containing values", function () {
                 expect(member(42, simpleTree)).toEqual(false);
+            });
+            it ("should not find a member in a misshaped tree", function () {
+                expect(member(-1, misshapedTree)).toEqual(false);
+            });
+        });
+
+        describe("#min", function () {
+            it ("should return the lowest value in the tree.", function () {
+                expect(min(simpleTree)).toEqual(-1);
+            });
+            it ("should raise an error when used on an empty tree.", function (){
+                expect(function () {
+                    min(new E());
+                }).toThrow(new ExtremeOnEmptyError().message);
+            });
+        });
+
+        describe("#max", function () {
+            it ("should return the highest value in the tree.", function () {
+                expect(max(simpleTree)).toEqual(1);
+            });
+            it ("should raise an error when used on an empty tree.", function (){
+                expect(function () {
+                    max(new E());
+                }).toThrow(new ExtremeOnEmptyError().message);
             });
         });
     });

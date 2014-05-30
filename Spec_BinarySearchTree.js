@@ -105,6 +105,28 @@ describe ("BinarySearchTree", function () {
                 }).toThrow(new ExtremeOnEmptyError().message);
             });
         });
+
+        describe("single_rotations", function (){
+            describe("#single_rotation_l", function() {
+                it ("should return a tree, where root and left tree get exchanged", function () {
+                    aTree = new N(
+                        "a",
+                        new N("x"),
+                        new N("b",
+                            new N("y"),
+                            new N("z")
+                        )
+                    );
+                    resultTree = single_rotation_l(aTree);
+                    expect(resultTree.value).toBe("b");
+                    expect(resultTree.right.value).toBe("z");
+                    resultLeft = resultTree.left;
+                    expect(resultLeft.value).toBe("a");
+                    expect(resultLeft.left.value).toBe("x");
+                    expect(resultLeft.right.value).toBe("y");
+                });
+            });
+        });
     });
 
 });

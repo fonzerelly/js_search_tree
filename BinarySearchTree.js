@@ -66,3 +66,5 @@ function max (aTree) {
     return extreme("right", aTree);
 }
 
+function single_rotation_l(aTree){
+}

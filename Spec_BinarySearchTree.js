@@ -147,6 +147,64 @@ describe ("BinarySearchTree", function () {
                 });
             });
         });
+
+        describe("double_rotations", function (){
+            describe("#double_rotation_l", function (){
+                it ("should return a tree, where root and right subroot degrade to subroots and third level subtree promotes to root", function (){
+                    aTree = new N(
+                        "a",
+                        new N("x"),
+                        new N(
+                            "c",
+                            new N(
+                                "b",
+                                new N("y1"),
+                                new N("y2")
+                            ),
+                            new N("z")
+                        )
+                    );
+                    resultTree = double_rotation_l(aTree);
+                    expect(resultTree.value).toBe("b");
+                    resultLeft = resultTree.left;
+                    expect(resultLeft.value).toBe("a");
+                    expect(resultLeft.left.value).toBe("x");
+                    expect(resultLeft.right.value).toBe("y1");
+                    resultRight = resultTree.right;
+                    expect(resultRight.value).toBe("c");
+                    expect(resultRight.left.value).toBe("y2");
+                    expect(resultRight.right.value).toBe("z");
+                });
+            });
+
+            describe("#double_rotation_r", function (){
+                it ("should return a tree, where root and left subroot degrade to subroots and third level subtree promotes to root", function (){
+                    aTree = new N(
+                        "c",
+                        new N(
+                            "a",
+                            new N("x"),
+                            new N(
+                                "b",
+                                new N("y1"),
+                                new N("y2")
+                            )
+                        ),
+                        new N("z")
+                    );
+                    resultTree = double_rotation_r(aTree);
+                    expect(resultTree.value).toBe("b");
+                    resultLeft = resultTree.left;
+                    expect(resultLeft.value).toBe("a");
+                    expect(resultLeft.left.value).toBe("x");
+                    expect(resultLeft.right.value).toBe("y1");
+                    resultRight = resultTree.right;
+                    expect(resultRight.value).toBe("c");
+                    expect(resultRight.left.value).toBe("y2");
+                    expect(resultRight.right.value).toBe("z");
+                });
+            });
+        });
     });
 
 });

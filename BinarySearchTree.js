@@ -68,24 +68,55 @@ function max (aTree) {
 
 function single_rotation_l(aTree){
     return new N(
-            aTree.right.value,
-            new N(
-                aTree.value,
-                aTree.left,
-                aTree.right.left),
-            aTree.right.right
-        );
+        aTree.right.value,
+        new N(
+            aTree.value,
+            aTree.left,
+            aTree.right.left),
+        aTree.right.right
+    );
 }
 
 function single_rotation_r(aTree){
     return new N(
-            aTree.left.value,
-            aTree.left.left,
-            new N(
-                aTree.value,
-                aTree.left.right,
-                aTree.right
-            )
-        );
+        aTree.left.value,
+        aTree.left.left,
+        new N(
+            aTree.value,
+            aTree.left.right,
+            aTree.right
+        )
+    );
 }
 
+function double_rotation_l(aTree){
+    return new N(
+        aTree.right.left.value,
+        new N(
+            aTree.value,
+            aTree.left,
+            aTree.right.left.left
+        ),
+        new N(
+            aTree.right.value,
+            aTree.right.left.right,
+            aTree.right.right
+        )
+    );
+}
+
+function double_rotation_r(aTree){
+    return new N(
+        aTree.left.right.value,
+        new N(
+            aTree.left.value,
+            aTree.left.left,
+            aTree.left.right.left
+        ),
+        new N(
+            aTree.value,
+            aTree.left.right.right,
+            aTree.right
+        )
+    );
+}

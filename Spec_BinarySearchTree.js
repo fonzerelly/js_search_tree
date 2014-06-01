@@ -108,7 +108,7 @@ describe ("BinarySearchTree", function () {
 
         describe("single_rotations", function (){
             describe("#single_rotation_l", function() {
-                it ("should return a tree, where root and left tree get exchanged", function () {
+                it ("should return a tree, where root and right tree got exchanged", function () {
                     aTree = new N(
                         "a",
                         new N("x"),
@@ -124,6 +124,26 @@ describe ("BinarySearchTree", function () {
                     expect(resultLeft.value).toBe("a");
                     expect(resultLeft.left.value).toBe("x");
                     expect(resultLeft.right.value).toBe("y");
+                });
+            });
+
+            describe("#single_rotation_r", function () {
+                it ("should return a tree, where root and left tree got exchanged", function (){
+                    aTree = new N(
+                        "b",
+                        new N("a",
+                            new N("x"),
+                            new N("y")
+                            ),
+                        new N("z")
+                    );
+                    resultTree = single_rotation_r(aTree);
+                    expect(resultTree.value).toBe("a");
+                    expect(resultTree.left.value).toBe("x");
+                    resultRight = resultTree.right;
+                    expect(resultRight.value).toBe("b");
+                    expect(resultRight.left.value).toBe("y");
+                    expect(resultRight.right.value).toBe("z");
                 });
             });
         });
